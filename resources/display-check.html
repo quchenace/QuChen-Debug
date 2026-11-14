@@ -1,0 +1,207 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'">
+<title>QuChen调试 · 显示器检测</title>
+<style>
+  html, body { margin: 0; padding: 0; height: 100%; background: #000; overflow: hidden; cursor: none; }
+  canvas { display: block; width: 100vw; height: 100vh; }
+  #hint {
+    position: fixed; left: 50%; bottom: 6vh; transform: translateX(-50%);
+    padding: 10px 18px; border-radius: 10px;
+    background: rgba(0, 0, 0, 0.62); color: #fff;
+    font: 14px/1.6 "Microsoft YaHei", system-ui, sans-serif;
+    text-align: center; pointer-events: none;
+    transition: opacity .5s ease;
+  }
+  /* 提示条几秒后淡出：它挡在画面上会影响判读，但一上来必须看得见，
+     否则用户不知道怎么翻页、怎么退出。移动鼠标或按键会让它再出来。 */
+  #hint.faded { opacity: 0; }
+</style>
+<canvas id="c"></canvas>
+<div id="hint"></div>
+<script>
+(function () {
+  var PAGES = {"solids": [{"id": "black", "label": "纯黑 · 找亮点与漏光", "color": "#000000"}, {"id": "white", "label": "纯白 · 找暗点与污渍", "color": "#ffffff"}, {"id": "gray50", "label": "50% 灰 · 找不均匀", "color": "#808080"}, {"id": "gray25", "label": "25% 灰 · 找暗部噪点", "color": "#404040"}, {"id": "gray75", "label": "75% 灰 · 找亮部噪点", "color": "#bfbfbf"}, {"id": "red", "label": "纯红 · 找红子像素失效", "color": "#ff0000"}, {"id": "green", "label": "纯绿 · 找绿子像素失效", "color": "#00ff00"}, {"id": "blue", "label": "纯蓝 · 找蓝子像素失效", "color": "#0000ff"}, {"id": "cyan", "label": "青 · 三补色对照", "color": "#00ffff"}], "patterns": [{"id": "leak", "label": "漏光 · 四角与边缘"}, {"id": "interference", "label": "干扰 · 一像素竖条"}, {"id": "focus", "label": "对焦 · 细线与文字"}, {"id": "breathe", "label": "呼吸 · 明暗交替"}, {"id": "contrast-dark", "label": "暗部对比 · 0~16 级"}, {"id": "contrast-light", "label": "亮部对比 · 239~255 级"}, {"id": "ramp-gray", "label": "灰阶 · 32 级"}, {"id": "ramp-red", "label": "红色阶 · 32 级"}, {"id": "ramp-green", "label": "绿色阶 · 32 级"}, {"id": "ramp-blue", "label": "蓝色阶 · 32 级"}, {"id": "saturation", "label": "饱和度 · 色相环带"}, {"id": "grid", "label": "网格 · 几何与坏点定位"}, {"id": "checker", "label": "棋盘 · 响应与拖影"}]}
+  var list = PAGES.solids.map(function (item) { return { kind: 'solid', id: item.id, label: item.label, color: item.color } })
+    .concat(PAGES.patterns.map(function (item) { return { kind: 'pattern', id: item.id, label: item.label } }))
+  var index = 0
+  var canvas = document.getElementById('c')
+  var hint = document.getElementById('hint')
+  var ctx = canvas.getContext('2d')
+  var hintTimer = 0
+
+  function size() {
+    var ratio = window.devicePixelRatio || 1
+    canvas.width = Math.round(window.innerWidth * ratio)
+    canvas.height = Math.round(window.innerHeight * ratio)
+  }
+
+  function fill(color) {
+    ctx.fillStyle = color
+    ctx.fillRect(0, 0, canvas.width, canvas.height)
+  }
+
+  function drawRamp(channel) {
+    var steps = 32
+    var w = canvas.width / steps
+    for (var i = 0; i < steps; i++) {
+      var v = Math.round(i * 255 / (steps - 1))
+      ctx.fillStyle = channel === 'gray' ? 'rgb(' + v + ',' + v + ',' + v + ')'
+        : channel === 'r' ? 'rgb(' + v + ',0,0)'
+        : channel === 'g' ? 'rgb(0,' + v + ',0)'
+        : 'rgb(0,0,' + v + ')'
+      ctx.fillRect(Math.floor(i * w), 0, Math.ceil(w) + 1, canvas.height)
+    }
+  }
+
+  function drawContrast(from, to) {
+    var steps = to - from + 1
+    var w = canvas.width / steps
+    for (var i = 0; i < steps; i++) {
+      var v = from + i
+      ctx.fillStyle = 'rgb(' + v + ',' + v + ',' + v + ')'
+      ctx.fillRect(Math.floor(i * w), 0, Math.ceil(w) + 1, canvas.height)
+    }
+    // 每一级都标出数值：肉眼分不出 3 和 4 时，至少知道自己在看第几级
+    ctx.fillStyle = 'rgba(128,128,128,0.9)'
+    ctx.font = Math.round(canvas.height / 40) + 'px sans-serif'
+    for (var j = 0; j < steps; j++) {
+      ctx.fillText(String(from + j), Math.floor(j * w) + 4, Math.round(canvas.height / 2))
+    }
+  }
+
+  function drawGrid() {
+    fill('#000')
+    ctx.strokeStyle = '#ffffff'
+    ctx.lineWidth = 1
+    var step = Math.max(24, Math.round(canvas.width / 48))
+    ctx.beginPath()
+    for (var x = 0; x <= canvas.width; x += step) { ctx.moveTo(x + 0.5, 0); ctx.lineTo(x + 0.5, canvas.height) }
+    for (var y = 0; y <= canvas.height; y += step) { ctx.moveTo(0, y + 0.5); ctx.lineTo(canvas.width, y + 0.5) }
+    ctx.stroke()
+    // 四角十字：用来看边角有没有被裁掉（过扫描）
+    ctx.lineWidth = 2
+    var arm = Math.round(canvas.width / 24)
+    var corners = [[0, 0], [canvas.width, 0], [0, canvas.height], [canvas.width, canvas.height]]
+    ctx.beginPath()
+    corners.forEach(function (p) {
+      ctx.moveTo(p[0] === 0 ? 0 : canvas.width - arm, p[1] === 0 ? 1 : canvas.height - 1)
+      ctx.lineTo(p[0] === 0 ? arm : canvas.width, p[1] === 0 ? 1 : canvas.height - 1)
+    })
+    ctx.stroke()
+  }
+
+  function drawChecker() {
+    var cell = Math.max(8, Math.round(canvas.width / 64))
+    for (var y = 0; y < canvas.height; y += cell) {
+      for (var x = 0; x < canvas.width; x += cell) {
+        ctx.fillStyle = ((x / cell + y / cell) % 2 === 0) ? '#ffffff' : '#000000'
+        ctx.fillRect(x, y, cell, cell)
+      }
+    }
+  }
+
+  function drawInterference() {
+    for (var x = 0; x < canvas.width; x += 2) {
+      ctx.fillStyle = '#ffffff'
+      ctx.fillRect(x, 0, 1, canvas.height)
+      ctx.fillStyle = '#000000'
+      ctx.fillRect(x + 1, 0, 1, canvas.height)
+    }
+  }
+
+  function drawLeak() {
+    fill('#000')
+    ctx.strokeStyle = 'rgba(255,255,255,0.35)'
+    ctx.lineWidth = 2
+    ctx.strokeRect(1, 1, canvas.width - 2, canvas.height - 2)
+  }
+
+  function drawFocus() {
+    fill('#000')
+    ctx.fillStyle = '#ffffff'
+    var fs = Math.round(canvas.height / 28)
+    ctx.font = fs + 'px "Microsoft YaHei", sans-serif'
+    var text = '细线与文字对焦测试 The quick brown fox 0123456789'
+    for (var i = 1; i <= 6; i++) {
+      ctx.fillText(text, Math.round(canvas.width * 0.06), Math.round(canvas.height * i / 7))
+    }
+    ctx.strokeStyle = '#ffffff'
+    ctx.lineWidth = 1
+    ctx.beginPath()
+    for (var y = 0; y < canvas.height; y += 6) { ctx.moveTo(canvas.width * 0.72, y + 0.5); ctx.lineTo(canvas.width * 0.96, y + 0.5) }
+    ctx.stroke()
+  }
+
+  function drawSaturation() {
+    var bands = 12
+    var h = canvas.height / bands
+    for (var i = 0; i < bands; i++) {
+      var hue = Math.round(i * 360 / bands)
+      var grad = ctx.createLinearGradient(0, 0, canvas.width, 0)
+      grad.addColorStop(0, 'hsl(' + hue + ',0%,50%)')
+      grad.addColorStop(1, 'hsl(' + hue + ',100%,50%)')
+      ctx.fillStyle = grad
+      ctx.fillRect(0, Math.floor(i * h), canvas.width, Math.ceil(h) + 1)
+    }
+  }
+
+  var breatheRaf = 0
+  function stopBreathe() { if (breatheRaf) { cancelAnimationFrame(breatheRaf); breatheRaf = 0 } }
+  function drawBreathe() {
+    var start = performance.now()
+    function step(now) {
+      var t = (now - start) / 2000
+      var v = Math.round((Math.sin(t * Math.PI * 2) * 0.5 + 0.5) * 255)
+      fill('rgb(' + v + ',' + v + ',' + v + ')')
+      breatheRaf = requestAnimationFrame(step)
+    }
+    breatheRaf = requestAnimationFrame(step)
+  }
+
+  function render() {
+    stopBreathe()
+    size()
+    var page = list[index]
+    if (page.kind === 'solid') { fill(page.color) }
+    else if (page.id === 'leak') { drawLeak() }
+    else if (page.id === 'interference') { drawInterference() }
+    else if (page.id === 'focus') { drawFocus() }
+    else if (page.id === 'breathe') { drawBreathe() }
+    else if (page.id === 'contrast-dark') { drawContrast(0, 16) }
+    else if (page.id === 'contrast-light') { drawContrast(239, 255) }
+    else if (page.id === 'ramp-gray') { drawRamp('gray') }
+    else if (page.id === 'ramp-red') { drawRamp('r') }
+    else if (page.id === 'ramp-green') { drawRamp('g') }
+    else if (page.id === 'ramp-blue') { drawRamp('b') }
+    else if (page.id === 'saturation') { drawSaturation() }
+    else if (page.id === 'grid') { drawGrid() }
+    else if (page.id === 'checker') { drawChecker() }
+    showHint(page.label)
+  }
+
+  function showHint(label) {
+    hint.textContent = (index + 1) + ' / ' + list.length + '  ·  ' + label
+      + '   ｜   ← → 或空格翻页 ｜ Esc 退出'
+    hint.classList.remove('faded')
+    if (hintTimer) clearTimeout(hintTimer)
+    hintTimer = setTimeout(function () { hint.classList.add('faded') }, 2600)
+  }
+
+  function go(delta) {
+    index = (index + delta + list.length) % list.length
+    render()
+  }
+
+  window.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') { window.close(); return }
+    if (event.key === 'ArrowRight' || event.key === 'ArrowDown' || event.key === ' ' || event.key === 'PageDown') { event.preventDefault(); go(1); return }
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowUp' || event.key === 'PageUp') { event.preventDefault(); go(-1); return }
+    if (event.key === 'Home') { index = 0; render() }
+  })
+  window.addEventListener('mousedown', function (event) { go(event.button === 2 ? -1 : 1) })
+  window.addEventListener('contextmenu', function (event) { event.preventDefault() })
+  window.addEventListener('resize', render)
+  render()
+})()
+</script>

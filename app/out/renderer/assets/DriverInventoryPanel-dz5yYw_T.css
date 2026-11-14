@@ -1,0 +1,21 @@
+
+.driver-filters[data-v-12c35b6f] { margin-top: 18px;
+}
+.driver-count[data-v-12c35b6f] { margin: 12px 0 !important;
+}
+.driver-list[data-v-12c35b6f] { display: flex; flex-direction: column; gap: 8px;
+}
+.driver-row[data-v-12c35b6f] { background: rgba(0,0,0,.12); border: 1px solid rgba(var(--accent-rgb),.12); border-radius: 10px; padding: 13px 15px; overflow-wrap: anywhere;
+}
+.driver-heading[data-v-12c35b6f] { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; font-size: 13px;
+}
+.driver-heading strong[data-v-12c35b6f] { font-weight: 500;
+}
+.driver-heading span[data-v-12c35b6f] { color: var(--accent); font-size: 11px;
+}
+.driver-heading .warning[data-v-12c35b6f] { color: #fbbf24;
+}
+.driver-meta[data-v-12c35b6f] { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 11px; color: #94a3b8;
+}
+.device-id[data-v-12c35b6f] { font-size: 10px !important; color: #64748b !important;
+}

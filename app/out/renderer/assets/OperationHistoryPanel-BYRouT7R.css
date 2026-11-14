@@ -1,0 +1,59 @@
+
+.reliability-page[data-v-63a33f28]{padding:28px;max-width:1200px;margin:auto;color:var(--text-main,#e8edff)}header[data-v-63a33f28],.section-head[data-v-63a33f28],.entry-head[data-v-63a33f28],.actions[data-v-63a33f28]{display:flex;align-items:center;justify-content:space-between;gap:16px}h1[data-v-63a33f28]{font-size:25px;font-weight:700}h2[data-v-63a33f28]{font-size:18px;font-weight:600}header p[data-v-63a33f28],.muted[data-v-63a33f28],time[data-v-63a33f28],small[data-v-63a33f28]{color:var(--text-muted,#93a2bf)}header p[data-v-63a33f28]{margin-top:8px}section[data-v-63a33f28]{margin-top:22px;padding:22px;border:1px solid #779ad326;border-radius:16px;background:#111d3580}button[data-v-63a33f28],select[data-v-63a33f28]{padding:8px 13px;border-radius:8px;border:1px solid #5c9dfb55;background:#24457655;color:inherit}button[data-v-63a33f28]:disabled{opacity:.45;cursor:default}button[data-v-63a33f28]:not(:disabled):hover{background:#3470aa77}.entry[data-v-63a33f28],.check-row[data-v-63a33f28]{border-top:1px solid #7397d124;padding:18px 0}.entry p[data-v-63a33f28],.check-row p[data-v-63a33f28]{margin:10px 0;font-size:13px;line-height:1.7}time[data-v-63a33f28]{font-size:12px}small[data-v-63a33f28]{font-size:12px;font-weight:400}.muted[data-v-63a33f28]{font-size:13px;line-height:1.8;margin:12px 0}.verified[data-v-63a33f28]{color:#52d9ac}.failed[data-v-63a33f28],.error[data-v-63a33f28]{color:#ff959f}.unsupported[data-v-63a33f28],.unverified[data-v-63a33f28],.restart-required[data-v-63a33f28]{color:#f5c976}.filter[data-v-63a33f28]{display:flex;align-items:center;gap:12px;margin:14px 0}.actions[data-v-63a33f28]{justify-content:flex-start;margin-top:14px}.snapshots[data-v-63a33f28]{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px}.snapshots pre[data-v-63a33f28]{overflow:auto;max-height:160px;padding:12px;background:#0003;border-radius:8px;font-size:12px}summary[data-v-63a33f28]{cursor:pointer;font-size:13px}.error[data-v-63a33f28]{padding:14px;background:#d63a5022;border-radius:8px}
+.check-row > span[data-v-63a33f28] { margin-left: 12px;
+}
+/* Embedded extensions use the same theme tokens and controls as the existing tool pages. */
+.embedded-tool[data-v-63a33f28] { padding: 0; margin: 0; max-width: none; min-width: 0; color: #e2e8f0;
+}
+.embedded-tool h2[data-v-63a33f28], .embedded-tool h3[data-v-63a33f28] { font-size: 14px; font-weight: 600; color: #e2e8f0;
+}
+.embedded-tool p[data-v-63a33f28], .embedded-tool .muted[data-v-63a33f28], .embedded-tool .hint[data-v-63a33f28], .embedded-tool .subtitle[data-v-63a33f28], .embedded-tool small[data-v-63a33f28], .embedded-tool time[data-v-63a33f28] { color: rgba(226,232,240,.5); font-size: 12px; line-height: 1.7;
+}
+.embedded-tool > section[data-v-63a33f28], .embedded-tool > .panel[data-v-63a33f28] { margin-top: 16px;
+}
+.embedded-tool > section[data-v-63a33f28]:first-child { margin-top: 0;
+}
+.embedded-tool .panel[data-v-63a33f28], .embedded-tool > section[data-v-63a33f28], .embedded-tool .status-grid > div[data-v-63a33f28] { background: rgba(0,0,0,.12); border: 1px solid rgba(var(--accent-rgb),.1); border-radius: 12px; padding: 18px;
+}
+.embedded-tool button[data-v-63a33f28] { background: rgba(var(--accent-rgb),.06); color: #e2e8f0; border: 1px solid rgba(var(--accent-rgb),.15); border-radius: 8px; padding: 8px 14px; font: inherit; font-size: 12px; cursor: pointer;
+}
+.embedded-tool button[data-v-63a33f28]:hover:enabled { background: rgba(var(--accent-rgb),.12); border-color: rgba(var(--accent-rgb),.35);
+}
+.embedded-tool button.primary[data-v-63a33f28] { background: rgba(var(--accent-rgb),.15); border-color: rgba(var(--accent-rgb),.3); color: var(--accent);
+}
+.embedded-tool button[data-v-63a33f28]:disabled { opacity: .4; cursor: not-allowed;
+}
+.embedded-tool input[data-v-63a33f28], .embedded-tool select[data-v-63a33f28], .embedded-tool textarea[data-v-63a33f28] { background: rgba(0,0,0,.2); color: #e2e8f0; border: 1px solid rgba(var(--accent-rgb),.14); border-radius: 8px; font-size: 12px;
+}
+.embedded-tool input[data-v-63a33f28]:focus, .embedded-tool select[data-v-63a33f28]:focus, .embedded-tool textarea[data-v-63a33f28]:focus { outline: 1px solid var(--accent); border-color: var(--accent);
+}
+.embedded-tool input[type=checkbox][data-v-63a33f28] { accent-color: var(--accent);
+}
+.embedded-tool select option[data-v-63a33f28] { background: var(--bg-deep); color: #e2e8f0;
+}
+.embedded-tool .scene-columns[data-v-63a33f28] { grid-template-columns: minmax(220px,.75fr) minmax(0,1.5fr);
+}
+.embedded-tool .profile-list article.selected[data-v-63a33f28] { border-color: rgba(var(--accent-rgb),.4); background: rgba(var(--accent-rgb),.06);
+}
+.embedded-tool .profile-list article[data-v-63a33f28], .embedded-tool .node[data-v-63a33f28] { border-color: rgba(var(--accent-rgb),.12); background: rgba(0,0,0,.12);
+}
+.embedded-tool .tags[data-v-63a33f28], .embedded-tool .on[data-v-63a33f28], .embedded-tool .phase[data-v-63a33f28] { color: var(--accent);
+}
+.embedded-tool .capture-state[data-v-63a33f28] { background: rgba(var(--accent-rgb),.06); border-color: rgba(var(--accent-rgb),.2);
+}
+.embedded-tool .banner[data-v-63a33f28]:not(.error), .embedded-tool .message[data-v-63a33f28]:not(.error), .embedded-tool .feedback[data-v-63a33f28]:not(.error) { background: rgba(var(--accent-rgb),.06); border-color: rgba(var(--accent-rgb),.2); color: var(--accent);
+}
+.embedded-tool .report-preview[data-v-63a33f28], .embedded-tool .snapshots pre[data-v-63a33f28] { background: rgba(0,0,0,.2); border-color: rgba(var(--accent-rgb),.1);
+}
+.embedded-tool .section-head[data-v-63a33f28], .embedded-tool .scene-heading[data-v-63a33f28], .embedded-tool .entry-head[data-v-63a33f28], .embedded-tool .export-row[data-v-63a33f28] { flex-wrap: wrap;
+}
+.embedded-tool .node.missing[data-v-63a33f28], .embedded-tool .node.error[data-v-63a33f28] { border-color: rgba(239,68,68,.45);
+}
+.embedded-tool .node.ready[data-v-63a33f28] { border-color: rgba(34,197,94,.35);
+}
+.embedded-tool .node.bypassed[data-v-63a33f28] { border-color: rgba(245,158,11,.4);
+}
+@media(max-width: 1000px) {
+.embedded-tool .scene-columns[data-v-63a33f28] { grid-template-columns: 1fr;
+}
+}

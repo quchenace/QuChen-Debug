@@ -1,0 +1,3 @@
+provider: generic
+url: https://github.com/quchenace/QuChen-Debug/releases/latest/download
+updaterCacheDirName: quchen-debugger-updater

@@ -1,0 +1,16 @@
+
+/* 透明背景 */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: transparent !important;
+}
+#app {
+  background: transparent !important;
+}
+.overlay-app {
+  position: fixed;
+  inset: 0;
+  background: transparent !important;
+}

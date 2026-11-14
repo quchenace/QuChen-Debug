@@ -1,0 +1,52 @@
+
+.kw-head[data-v-60dec124] { display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+}
+.kw-icon[data-v-60dec124] { width: 40px; height: 40px; border-radius: 12px; background: rgba(239,68,68,.12); color: #ef4444; display: flex; align-items: center; justify-content: center; font-size: 20px;
+}
+.kw-title[data-v-60dec124] { font-size: 16px; font-weight: 700; color: #f1f5f9;
+}
+.kw-body[data-v-60dec124] { display: flex; flex-direction: column; gap: 10px;
+}
+.kw-detail[data-v-60dec124] { font-size: 12px; color: #94a3b8; white-space: pre-line;
+}
+.kw-conseq[data-v-60dec124] { display: flex; flex-direction: column; gap: 6px;
+}
+.kw-conseq-item[data-v-60dec124] { background: rgba(239,68,68,.06); border: 1px solid rgba(239,68,68,.2); border-radius: 8px; padding: 8px 10px; font-size: 12px; color: #fca5a5;
+}
+.kw-warn[data-v-60dec124] { font-size: 12px; color: #f59e0b;
+}
+.kw-input-row[data-v-60dec124] { display: flex; flex-direction: column; gap: 6px; margin-top: 6px;
+}
+.kw-input-hint[data-v-60dec124] { font-size: 12px; color: #94a3b8;
+}
+.kw-input[data-v-60dec124] { background: rgba(15,23,42,.7); border: 1px solid rgba(56,189,248,.25); border-radius: 8px; padding: 8px 12px; font-size: 13px; color: #e2e8f0; outline: none;
+}
+.kw-input.err[data-v-60dec124] { border-color: rgba(239,68,68,.6);
+}
+.kw-err[data-v-60dec124] { font-size: 11px; color: #ef4444;
+}
+.kw-countdown[data-v-60dec124] { font-size: 11px; color: #f59e0b;
+}
+.kw-foot[data-v-60dec124] { display: flex; justify-content: flex-end; gap: 10px; margin-top: 16px;
+}
+.kw-btn[data-v-60dec124] { border-radius: 8px; padding: 8px 18px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all .15s;
+}
+.kw-btn.ghost[data-v-60dec124] { background: transparent; border: 1px solid rgba(148,163,184,.25); color: #cbd5e1;
+}
+.kw-btn.danger[data-v-60dec124] { background: rgba(239,68,68,.15); border: 1px solid rgba(239,68,68,.4); color: #ef4444;
+}
+.kw-btn.danger[data-v-60dec124]:disabled { opacity: .4; cursor: not-allowed;
+}
+
+/* ── ElDialog 暗色覆盖(项目无全局 el-dialog 暗色处理,按现有 :deep 模式补齐) ── */
+.kw-dialog[data-v-60dec124] {
+  --el-dialog-bg-color: #0b1220;
+  --el-dialog-border-radius: 12px;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
+  max-width: calc(100vw - 32px);
+}
+.kw-dialog[data-v-60dec124] .el-dialog__body { padding: 0 20px;
+}
+.kw-dialog[data-v-60dec124] .el-dialog__header { display: none;
+} /* 未传 title 也会渲染出空 header 条(padding-bottom:16px),隐藏 */

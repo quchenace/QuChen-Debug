@@ -1,0 +1,29 @@
+
+.sd[data-v-b3ca6fc8] { display: inline-flex; align-items: center; gap: 5px;
+}
+.sd-dot[data-v-b3ca6fc8] { border-radius: 50%; display: inline-block; flex-shrink: 0;
+}
+.sd-idle[data-v-b3ca6fc8] { background: #64748b;
+}
+.sd-running[data-v-b3ca6fc8] { background: #38bdf8; animation: sd-breathe-b3ca6fc8 1.5s ease-in-out infinite;
+}
+.sd-done[data-v-b3ca6fc8] { background: #22c55e; box-shadow: 0 0 6px rgba(34,197,94,.6); animation: sd-pop-b3ca6fc8 .3s ease-out;
+}
+.sd-warn[data-v-b3ca6fc8] { background: #f59e0b;
+}
+.sd-label[data-v-b3ca6fc8] { color: inherit;
+}
+@keyframes sd-breathe-b3ca6fc8 {
+0%, 100% { opacity: 1; transform: scale(1);
+}
+50% { opacity: .4; transform: scale(.85);
+}
+}
+@keyframes sd-pop-b3ca6fc8 {
+0% { transform: scale(0);
+}
+70% { transform: scale(1.3);
+}
+100% { transform: scale(1);
+}
+}

@@ -1,0 +1,32 @@
+{
+  "appId": "com.quchen.debugger",
+  "productName": "QuChen调试",
+  "electronVersion": "28.3.3",
+  "executableName": "QuChen调试",
+  "directories": {
+    "output": "release"
+  },
+  "win": {
+    "icon": "staging/resources/app.ico",
+    "target": [
+      {
+        "target": "nsis",
+        "arch": ["x64"]
+      }
+    ]
+  },
+  "nsis": {
+    "oneClick": false,
+    "perMachine": false,
+    "allowToChangeInstallationDirectory": true,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "shortcutName": "QuChen调试",
+    "artifactName": "QuChen-Debug-Setup-${version}.${ext}",
+    "uninstallDisplayName": "QuChen调试",
+    "installerIcon": "staging/resources/app.ico",
+    "uninstallerIcon": "staging/resources/app.ico",
+    "deleteAppDataOnUninstall": false
+  },
+  "npmRebuild": false
+}

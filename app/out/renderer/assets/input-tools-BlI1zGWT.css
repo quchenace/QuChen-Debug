@@ -1,0 +1,23 @@
+.input-tool { margin: 20px 0; padding: 22px; min-width: 0; color: #e2e8f0; background: rgba(15,23,42,.4); border: 1px solid rgba(var(--accent-rgb),.12); border-radius: 14px; }
+.input-tool .tool-heading { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 18px; }
+.input-tool h3 { font-size: 15px; font-weight: 600; margin: 0 0 5px; }
+.input-tool p { font-size: 12px; line-height: 1.7; margin: 4px 0; color: #94a3b8; }
+.input-tool .tool-badge { border: 1px solid rgba(var(--accent-rgb),.2); color: var(--accent); padding: 4px 10px; border-radius: 20px; font-size: 11px; }
+.input-tool .tool-fields { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; }
+.input-tool label { display: flex; flex-direction: column; gap: 7px; font-size: 12px; color: #94a3b8; min-width: 0; }
+.input-tool .inline-field { flex-direction: row; align-items: center; white-space: nowrap; }
+.input-tool input, .input-tool select { width: 100%; min-width: 0; background: rgba(0,0,0,.2); color: #e2e8f0; padding: 9px 10px; border: 1px solid rgba(var(--accent-rgb),.15); border-radius: 8px; font: inherit; }
+.input-tool select option { background: #0f172a; color: #e2e8f0; }
+.input-tool button { color: #e2e8f0; background: rgba(var(--accent-rgb),.06); border: 1px solid rgba(var(--accent-rgb),.2); padding: 8px 14px; border-radius: 8px; cursor: pointer; font-size: 12px; }
+.input-tool button:hover:enabled, .input-tool button.primary { color: var(--accent); background: rgba(var(--accent-rgb),.14); }
+.input-tool button:disabled { opacity: .4; cursor: not-allowed; }
+.input-tool button:focus-visible, .input-tool input:focus, .input-tool select:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+.input-tool .tool-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 14px 0; }
+.input-tool .tool-status { color: var(--accent); font-size: 12px; }
+.input-tool .tool-metrics { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; margin: 16px 0; }
+.input-tool .tool-metrics > div { display: flex; flex-direction: column; gap: 8px; padding: 12px; background: rgba(0,0,0,.12); border-radius: 8px; }
+.input-tool .tool-metrics span { color: #94a3b8; font-size: 11px; }
+.input-tool .tool-metrics strong { font-size: 14px; font-weight: 500; overflow-wrap: anywhere; }
+.input-tool .tool-error { color: #fbbf24; margin-top: 12px; }
+.input-tool .tool-note { margin-top: 14px; }
+@media(max-width: 800px) { .input-tool { padding: 16px; } .input-tool .tool-fields, .input-tool .tool-metrics { grid-template-columns: 1fr; } }

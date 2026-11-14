@@ -1,0 +1,21 @@
+
+.local-presets[data-v-8c8c8200] { border-top: 1px solid rgba(148,163,184,.14); margin-top: 18px; padding-top: 14px; color: #94a3b8;
+}
+h4[data-v-8c8c8200] { margin: 0 0 12px; color: #e2e8f0; font-size: 14px;
+}
+.preset-actions[data-v-8c8c8200] { display: flex; flex-wrap: wrap; gap: 8px;
+}
+input[data-v-8c8c8200]:not([hidden]), button[data-v-8c8c8200] { border: 1px solid rgba(148,163,184,.25); border-radius: 6px; background: rgba(15,23,42,.7); color: #cbd5e1; padding: 7px 10px; font-size: 12px;
+}
+button[data-v-8c8c8200] { cursor: pointer;
+}
+button[data-v-8c8c8200]:disabled { opacity: .4; cursor: default;
+}
+ul[data-v-8c8c8200] { padding: 0; list-style: none;
+}
+li[data-v-8c8c8200] { display: flex; gap: 8px; align-items: center; padding: 5px 0; font-size: 12px;
+}
+li span[data-v-8c8c8200] { flex: 1; overflow-wrap: anywhere;
+}
+p[data-v-8c8c8200] { font-size: 12px; line-height: 1.7;
+}

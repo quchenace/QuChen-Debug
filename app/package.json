@@ -1,0 +1,16 @@
+{
+  "name": "supreme-debugger",
+  "version": "6.2.0",
+  "description": "QuChen调试 - 专业级 PC 优化与游戏辅助桌面软件",
+  "main": "./out/main/index.js",
+  "dependencies": {
+    "@ddc-node/ddc-node": "^1.0.3",
+    "axios": "^1.18.1",
+    "electron-updater": "^6.8.3",
+    "element-plus": "^2.14.3",
+    "iconv-lite": "^0.7.3",
+    "ogl": "^1.0.11",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  }
+}
