@@ -1,8 +1,8 @@
 {
   "name": "supreme-debugger",
-  "version": "6.2.0",
+  "version": "6.3.1",
   "description": "QuChen调试 - 专业级 PC 优化与游戏辅助桌面软件",
-  "main": "./out/main/index.js",
+  "main": "./out/main/entry.js",
   "dependencies": {
     "@ddc-node/ddc-node": "^1.0.3",
     "axios": "^1.18.1",
