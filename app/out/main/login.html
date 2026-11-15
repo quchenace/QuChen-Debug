@@ -141,7 +141,7 @@
   $('close').addEventListener('click', function () { window.qc.close(); });
   $('register').addEventListener('click', function (e) {
     e.preventDefault();
-    setMsg('请在浏览器打开账号服务地址（默认 http://127.0.0.1:8788/login.html）注册或重置密码', false);
+    setMsg('请在浏览器打开 https://frp-any.com:19549/login.html 注册或重置密码', false);
   });
 
   window.qc.state().then(function (s) {
