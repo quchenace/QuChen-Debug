@@ -86,6 +86,49 @@ ipcMain.handle('qc:gate-login', async (_event, payload) => {
   return { ok: true, email: why.email || email };
 });
 
+// 注册：先发邮箱验证码，再带验证码建号（服务端 require_approval=1 时注册后待审批）
+ipcMain.handle('qc:gate-send-code', async (_event, payload) => {
+  const email = String((payload && payload.email) || '').trim();
+  if (!email) return { ok: false, code: 'bad_request', message: '请填写邮箱' };
+  try {
+    const data = await gate.sendCode(email, (payload && payload.purpose) || 'register');
+    return {
+      ok: true,
+      ttl: data.ttl,
+      resend_after: data.resend_after,
+      message: data.message,
+      dev_code: data.dev_code,
+    };
+  } catch (err) {
+    return {
+      ok: false,
+      code: (err && err.code) || 'send_failed',
+      status: (err && err.status) || 0,
+      message: (err && err.message) || '验证码发送失败',
+    };
+  }
+});
+
+ipcMain.handle('qc:gate-register', async (_event, payload) => {
+  const email = String((payload && payload.email) || '').trim();
+  const code = String((payload && payload.code) || '').trim();
+  const password = String((payload && payload.password) || '');
+  if (!email || !code || !password) {
+    return { ok: false, code: 'bad_request', message: '请填写邮箱、验证码与密码' };
+  }
+  try {
+    const data = await gate.register(email, code, password);
+    return { ok: true, status: data.status, message: data.message };
+  } catch (err) {
+    return {
+      ok: false,
+      code: (err && err.code) || 'register_failed',
+      status: (err && err.status) || 0,
+      message: (err && err.message) || '注册失败',
+    };
+  }
+});
+
 ipcMain.handle('qc:gate-minimize', () => {
   if (loginWin) loginWin.minimize();
   return { ok: true };
