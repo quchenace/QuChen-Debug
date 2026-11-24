@@ -1,9 +1,8 @@
-version: 6.3.1
+version: 6.3.2
 files:
-  - url: https://github.com/quchenace/QuChen-Debug/releases/download/v6.3.1/QuChen-Debug-Setup-6.3.1.exe
-    sha512: QovNckpF/RdFXWAGqb35P7mdksOVYUUf64j8e61QqXJ8yj+rKxopQ0zzpYuPPk7/ohlDLiGa9vjFdcLsu+J5pw==
-    size: 97372259
-path: https://github.com/quchenace/QuChen-Debug/releases/download/v6.3.1/QuChen-Debug-Setup-6.3.1.exe
-sha512: QovNckpF/RdFXWAGqb35P7mdksOVYUUf64j8e61QqXJ8yj+rKxopQ0zzpYuPPk7/ohlDLiGa9vjFdcLsu+J5pw==
-size: 97372259
-releaseDate: '2026-11-15T11:30:00.000Z'
+  - url: https://github.com/quchenace/QuChen-Debug/releases/download/v6.3.2/QuChen-Debug-Setup-6.3.2.exe
+    sha512: IZ5P71MX+aCj2MB82CjhbDf1mi6YUz0KYb677JpbvcOJk8sh3bYCiUs4pH4Lpbm0sUpLpIiZiOGfI/fhrT9Now==
+    size: 96000011
+path: https://github.com/quchenace/QuChen-Debug/releases/download/v6.3.2/QuChen-Debug-Setup-6.3.2.exe
+sha512: IZ5P71MX+aCj2MB82CjhbDf1mi6YUz0KYb677JpbvcOJk8sh3bYCiUs4pH4Lpbm0sUpLpIiZiOGfI/fhrT9Now==
+releaseDate: '2026-11-24T12:24:31.131Z'
