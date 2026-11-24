@@ -163,7 +163,7 @@ function listen() {
 
   /* 10. 工程接入静态校验 */
   const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'app', 'package.json'), 'utf8'));
-  ok('package.json 版本 6.3.1', pkg.version === '6.3.1', pkg.version);
+  ok('package.json 版本 6.3.2', pkg.version === '6.3.2', pkg.version);
   ok('main 指向门禁入口', pkg.main === './out/main/entry.js', pkg.main);
   const entry = fs.readFileSync(path.join(MAIN, 'entry.js'), 'utf8');
   ok('entry 引入 AccountGate', entry.includes("require('./account-gate.js')"));

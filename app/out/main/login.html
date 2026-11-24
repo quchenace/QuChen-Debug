@@ -67,7 +67,7 @@
     </div>
 
     <h1>登录以继续</h1>
-    <p class="sub">账号为本机曲辰套件通用账号，登录后 30 天内可离线使用。</p>
+    <p class="sub">账号为本机曲辰套件通用账号，登录后 7 天内可离线使用（服务端可调）。</p>
 
     <label for="email">邮箱</label>
     <div id="qcTabs" style="display:flex;gap:6px;margin:0 0 14px;background:#0f131a;border:1px solid #232a36;border-radius:11px;padding:4px">
@@ -167,7 +167,9 @@
   $('close').addEventListener('click', function () { window.qc.close(); });
   $('register').addEventListener('click', function (e) {
     e.preventDefault();
-    setMsg('请在浏览器打开 https://frp-any.com:19549/login.html 注册或重置密码', false);
+    var tab = document.getElementById('tabRegister');
+    if (tab) { tab.click(); return; }
+    setMsg('请到浏览器打开 https://frp-any.com:19549/login.html 注册或重置密码', false);
   });
 
   window.qc.state().then(function (s) {
@@ -206,6 +208,9 @@
       var h = host(el);
       if (h) h.style.display = reg ? 'none' : '';
     });
+    /* 邮箱/密码的 <label> 与 input 平级，切到注册视图时一并隐藏 */
+    var lab = document.querySelectorAll('label[for="email"], label[for="password"]');
+    for (var i = 0; i < lab.length; i++) lab[i].style.display = reg ? 'none' : '';
     pane.style.display = reg ? '' : 'none';
     tabLogin.style.background = reg ? 'transparent' : '#1d2534';
     tabLogin.style.color = reg ? '#8b93a3' : '#e8ecf2';
@@ -234,7 +239,12 @@
       smtp_failed: '验证码邮件发送失败，请稍后重试。',
       bad_request: '请检查填写内容。',
       unreachable: '连不上账号服务，请确认网络或服务已启动。',
-      forbidden: '非法调用来源。'
+      forbidden: '非法调用来源。',
+      weak_password: '密码需 8-128 位，请重新设置。',
+      pending_approval: '账号待管理员审批，通过后即可登录。',
+      bad_credentials: '邮箱或密码不正确。',
+      locked: '密码错误次数过多，请稍后再试或重置密码。',
+      too_many_devices: '设备数已达上限，请先在账号中心移出旧设备。'
     };
     if (map[code]) return map[code];
     return (res && res.message) || '操作失败，请重试。';
